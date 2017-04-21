@@ -5,7 +5,8 @@
   "main": "SouthwarkTiles.es5.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "precommit": "lint-staged"
+    "build": "babel SouthwarkTiles.js -o SouthwarkTiles.es5.js",
+    "precommit": "yarn run build && lint-staged"
   },
   "lint-staged": {
     "*.js": [
