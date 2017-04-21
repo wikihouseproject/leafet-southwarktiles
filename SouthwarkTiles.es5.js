@@ -1,15 +1,16 @@
 "use strict";
 
-var _typeof = typeof Symbol === "function" &&
-  typeof Symbol.iterator === "symbol"
-  ? function(obj) {
-      return typeof obj;
-    }
-  : function(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol
-        ? "symbol"
-        : typeof obj;
-    };
+var _from = require("babel-runtime/core-js/array/from");
+
+var _from2 = _interopRequireDefault(_from);
+
+var _typeof2 = require("babel-runtime/helpers/typeof");
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
 require("babel-polyfill");
 
@@ -19,8 +20,9 @@ require("babel-polyfill");
     // AMD. Register as an anonymous module.
     define(["leaflet", "proj4leaflet"], factory);
   } else if (
-    (typeof exports === "undefined" ? "undefined" : _typeof(exports)) ===
-    "object"
+    (typeof exports === "undefined"
+      ? "undefined"
+      : (0, _typeof3.default)(exports)) === "object"
   ) {
     // Node & CommonJS-like environments.
     var L = require("leaflet"); // eslint-disable-line vars-on-top
@@ -36,14 +38,14 @@ require("babel-polyfill");
   }
 })(undefined, function(L) {
   L.SouthwarkTiles = L.SouthwarkTiles || {};
-  L.SouthwarkTiles.VERSION = "0.0.2";
+  L.SouthwarkTiles.VERSION = "0.0.3";
   L.SouthwarkTiles.CRS = L.extend(
     new L.Proj
       .CRS(
       "EPSG:27700",
       "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs",
       {
-        resolutions: Array.from(new Array(12), function(x, i) {
+        resolutions: (0, _from2.default)(new Array(12), function(x, i) {
           return 320 / 2 ** i;
         })
       }
