@@ -20,7 +20,7 @@ require("babel-polyfill");
   }
 })(this, function(L) {
   L.SouthwarkTiles = L.SouthwarkTiles || {};
-  L.SouthwarkTiles.VERSION = "0.0.2";
+  L.SouthwarkTiles.VERSION = "0.0.3";
   L.SouthwarkTiles.CRS = L.extend(
     new L.Proj
       .CRS(
