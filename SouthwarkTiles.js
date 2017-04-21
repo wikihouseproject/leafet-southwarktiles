@@ -19,7 +19,7 @@
   }
 })(this, function(L) {
   L.SouthwarkTiles = L.SouthwarkTiles || {};
-  L.SouthwarkTiles.VERSION = "0.0.5";
+  L.SouthwarkTiles.VERSION = "0.0.6";
   L.SouthwarkTiles.CRS = L.extend(
     new L.Proj
       .CRS(
@@ -42,7 +42,7 @@
     initialize: function(mapname, crs, options) {
       L.TileLayer.WMS.prototype.initialize.call(
         this,
-        "https://corsproxy.bitsushi.com/yarn maps.southwark.gov.uk/connect/controller/tiling/gettile",
+        "https://corsproxy.bitsushi.com/maps.southwark.gov.uk/connect/controller/tiling/gettile",
         {
           crs: L.SouthwarkTiles.CRS,
           maxZoom: 12,

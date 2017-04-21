@@ -1,6 +1,6 @@
 {
   "name": "leaflet-southwarktiles",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A Leaflet js TileLayer using the Southwark tiles map service",
   "main": "SouthwarkTiles.es5.js",
   "scripts": {
