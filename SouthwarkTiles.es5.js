@@ -1,9 +1,25 @@
+"use strict";
+
+var _typeof = typeof Symbol === "function" &&
+  typeof Symbol.iterator === "symbol"
+  ? function(obj) {
+      return typeof obj;
+    }
+  : function(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol
+        ? "symbol"
+        : typeof obj;
+    };
+
 (function(root, factory) {
   // UMD for  Node, AMD or browser globals
   if (typeof define === "function" && define.amd) {
     // AMD. Register as an anonymous module.
     define(["leaflet", "proj4leaflet"], factory);
-  } else if (typeof exports === "object") {
+  } else if (
+    (typeof exports === "undefined" ? "undefined" : _typeof(exports)) ===
+    "object"
+  ) {
     // Node & CommonJS-like environments.
     var L = require("leaflet"); // eslint-disable-line vars-on-top
     require("proj4leaflet");
@@ -16,20 +32,22 @@
     }
     root.returnExports = factory(root.L);
   }
-})(this, function(L) {
+})(undefined, function(L) {
   L.SouthwarkTiles = L.SouthwarkTiles || {};
-  L.SouthwarkTiles.VERSION = "0.0.2";
+  L.SouthwarkTiles.VERSION = "0.0.1";
   L.SouthwarkTiles.CRS = L.extend(
     new L.Proj
       .CRS(
       "EPSG:27700",
       "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs",
       {
-        resolutions: Array.from(new Array(12), (x, i) => 320 / 2 ** i)
+        resolutions: Array.from(new Array(12), function(x, i) {
+          return 320 / 2 ** i;
+        })
       }
     ),
     {
-      distance: function(a, b) {
+      distance: function distance(a, b) {
         return L.CRS.Earth.distance(a, b);
       }
     }
@@ -38,7 +56,7 @@
   // http://maps.southwark.gov.uk/connect/controller/tiling/gettile?name=B_MappingC_210716_2&level=1&row=1&col=1&output=image/png
 
   L.SouthwarkTiles.TileLayer = L.TileLayer.WMS.extend({
-    initialize: function(mapname, crs, options) {
+    initialize: function initialize(mapname, crs, options) {
       L.TileLayer.WMS.prototype.initialize.call(
         this,
         "http://maps.southwark.gov.uk/connect/controller/tiling/gettile",
@@ -62,7 +80,7 @@
       };
     },
 
-    getAttribution: function() {
+    getAttribution: function getAttribution() {
       return (
         "&copy; " +
         new Date().getFullYear() +
@@ -70,10 +88,10 @@
       );
     },
 
-    getTileUrl: function(tilePoint) {
-      const level = tilePoint.z + 1;
-      const numTiles = 1 << tilePoint.z;
-      const tileSize = 81920 / numTiles;
+    getTileUrl: function getTileUrl(tilePoint) {
+      var level = tilePoint.z + 1;
+      var numTiles = 1 << tilePoint.z;
+      var tileSize = 81920 / numTiles;
 
       var bounds = {
         top: 219960,
