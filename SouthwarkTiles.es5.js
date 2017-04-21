@@ -37,13 +37,24 @@ function _interopRequireDefault(obj) {
   }
 })(undefined, function(L) {
   L.SouthwarkTiles = L.SouthwarkTiles || {};
-  L.SouthwarkTiles.VERSION = "0.0.6";
+  L.SouthwarkTiles.VERSION = "0.0.7";
+
+  var bounds = {
+    top: 219960,
+    right: 572960,
+    bottom: 138040,
+    left: 491040,
+    center: [51.458189528222356, -0.08094055858692445]
+  };
+
   L.SouthwarkTiles.CRS = L.extend(
     new L.Proj
       .CRS(
       "EPSG:27700",
       "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs",
       {
+        origin: [bounds.left, bounds.top],
+        // transformation: L.Transformation(1, 0, -1, 0),
         resolutions: (0, _from2.default)(new Array(12), function(x, i) {
           return 320 / Math.pow(2, i);
         })
@@ -67,16 +78,22 @@ function _interopRequireDefault(obj) {
           crs: L.SouthwarkTiles.CRS,
           maxZoom: 12,
           opacity: 0.8,
-          tileSize: 256,
-          bounds: L.latLngBounds(
-            L.latLng(51.38885, -0.64932),
-            L.latLng(52.06954, 0.48703)
-          )
+          tileSize: 256
+
+          // bounds: L.latLngBounds(
+          //   L.latLng(51.433551, -0.215879),
+          //   L.latLng(51.5799353,-0.0433017)
+          // )
+
+          // tileSize: 271,
+          // bounds: L.latLngBounds(
+          //   L.latLng(51.38885, -0.64932),
+          //   L.latLng(52.06954, 0.48703)
+          // )
         },
         options
       );
 
-      // http://maps.southwark.gov.uk/connect/controller/tiling/gettile?name=B_MappingC_210716_2&level=6&row=15&col=15&output=image/png
       this.wmsParams = {
         output: "image/png",
         name: mapname
@@ -93,8 +110,6 @@ function _interopRequireDefault(obj) {
 
     getTileUrl: function getTileUrl(tilePoint) {
       var level = tilePoint.z + 1;
-      var numTiles = 1 << tilePoint.z;
-      var tileSize = 81920 / numTiles;
 
       var bounds = {
         top: 219960,
@@ -107,15 +122,22 @@ function _interopRequireDefault(obj) {
       var resolutionMpp = this.options.crs.options.resolutions[tilePoint.z],
         tileSizeMetres = this.options.tileSize * resolutionMpp,
         tileBboxX0 = tileSizeMetres * (0.5 + tilePoint.x),
-        tileBboxY0 = tileSizeMetres * (-0.5 - tilePoint.y);
+        tileBboxY0 = tileSizeMetres * (0.5 - tilePoint.y);
 
       // console.log(resolutionMpp, tileSizeMetres, tileBboxX0, tileBboxY0)
       // console.log(tilePoint)
 
       this.wmsParams.level = level;
       // this.wmsParams.col = tilePoint.x % 6 + 1
-      this.wmsParams.col = tilePoint.x - (3 << level) + 1;
-      this.wmsParams.row = tilePoint.y + (3 << (level - 1)) + 1;
+      this.wmsParams.col = tilePoint.x + 1; // - (3 << level) + 1;
+      this.wmsParams.row = tilePoint.y + 1; // + (3 << (level - 1)) + 1;
+
+      console.log(
+        this.options.tileSize,
+        tileSizeMetres,
+        tilePoint,
+        L.Util.getParamString(this.wmsParams)
+      );
 
       // console.info({x: tilePoint.x, y: tilePoint.y, lev: level, row: this.wmsParams.row, col: this.wmsParams.col})
       return this._url + L.Util.getParamString(this.wmsParams);
