@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Leafletjs - Southwark Tiles Example</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>* {
+    margin: 0;
+    padding: 0;
+    }</style>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+</head>
+<body>
+
+  <div id="map" style="width: 100vw; height: 100vh;"></div>
+
+  <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+  <script src="https://rawgit.com/kartena/Proj4Leaflet/master/lib/proj4-compressed.js"></script>
+  <script src="https://rawgit.com/kartena/Proj4Leaflet/master/src/proj4leaflet.js"></script>
+  <script src="../SouthwarkTiles.js"></script>
+
+  <script>
+
+(function () {
+  'use strict';
+
+  var map;
+
+  function init() {
+    var popup = L.popup(),
+      openspaceLayer;
+
+    var googleProj = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
+    var osProj = "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs"
+    // var coordinates = proj4(osProj, googleProj, [533424, 174992]);
+    // console.log(coordinates)
+
+    var bounds = {
+      top: 219960,
+      right: 572960,
+      bottom: 138040,
+      left: 491040,
+      center: [51.458189528222356, -0.08094055858692445]
+    }
+
+    // southwest
+    var southWest = L.latLng(...proj4(osProj, googleProj, [bounds.left, bounds.bottom]).reverse())
+    // northeast
+    var northEast = L.latLng(...proj4(osProj, googleProj, [bounds.right, bounds.top]).reverse())
+    console.log(southWest, northEast)
+
+    map = new L.Map('map', {
+      zoom: 0,
+      crs: L.SouthwarkTiles.CRS,
+      attributionControl: false,
+      // maxBounds: L.latLngBounds(southWest, northEast)
+      maxBounds: L.latLngBounds(
+        L.latLng(51.38885, -0.64932),
+        L.latLng(52.06954, 0.48703)
+      )
+    });
+
+    openspaceLayer = L.SouthwarkTiles.tilelayer('B_MappingC_210716_2');
+
+    map.addLayer(openspaceLayer);
+    map.setView(bounds.center, 0);
+
+    L.marker(bounds.center).addTo(map)
+    // console.log(map.getBounds())
+
+    L.control.scale({ position: 'bottomright' }).addTo(map);
+
+        function onMapClick(e) {
+      popup
+        .setLatLng(e.latlng)
+        .setContent('You clicked the map at ' + e.latlng.toString())
+        .openOn(map);
+    }
+
+    map.on('click', onMapClick);
+  }
+
+  window.onload = init;
+}());
+
+</script>
+
+</body>
+</html>
