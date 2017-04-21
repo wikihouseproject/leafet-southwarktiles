@@ -91,16 +91,11 @@
 
       this.wmsParams.level = level
       // this.wmsParams.col = tilePoint.x % 6 + 1
-      this.wmsParams.col = tilePoint.x-(3<<level)+ 1
+      this.wmsParams.col = tilePoint.x-(3<<level) + 1
       this.wmsParams.row = tilePoint.y+(3<<(level-1))+1
 
-      console.info({x: tilePoint.x, y: tilePoint.y, lev: level, row: this.wmsParams.row, col: this.wmsParams.col})
-
-      // if (tileBboxX0 > bounds.left && tileBboxX0 < bounds.right && tileBboxY0 > bounds.bottom && tileBboxY0 < bounds.top) {
-        return this._url + L.Util.getParamString(this.wmsParams);
-      // } else {
-        // return;
-      // }
+      // console.info({x: tilePoint.x, y: tilePoint.y, lev: level, row: this.wmsParams.row, col: this.wmsParams.col})
+      return this._url + L.Util.getParamString(this.wmsParams);
 
 
     },
