@@ -11,6 +11,8 @@ var _typeof = typeof Symbol === "function" &&
         : typeof obj;
     };
 
+require("babel-polyfill");
+
 (function(root, factory) {
   // UMD for  Node, AMD or browser globals
   if (typeof define === "function" && define.amd) {
@@ -34,7 +36,7 @@ var _typeof = typeof Symbol === "function" &&
   }
 })(undefined, function(L) {
   L.SouthwarkTiles = L.SouthwarkTiles || {};
-  L.SouthwarkTiles.VERSION = "0.0.1";
+  L.SouthwarkTiles.VERSION = "0.0.2";
   L.SouthwarkTiles.CRS = L.extend(
     new L.Proj
       .CRS(

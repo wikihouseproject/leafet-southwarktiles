@@ -1,3 +1,5 @@
+require("babel-polyfill");
+
 (function(root, factory) {
   // UMD for  Node, AMD or browser globals
   if (typeof define === "function" && define.amd) {

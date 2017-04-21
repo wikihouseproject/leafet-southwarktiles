@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/wikihouseproject/leaflet-southwarktiles",
   "dependencies": {
+    "babel-polyfill": "^6.23.0",
     "leaflet": "^1.0.3",
     "proj4leaflet": "^1.0.1"
   },
