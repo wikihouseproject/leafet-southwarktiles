@@ -42,7 +42,7 @@
     initialize: function(mapname, crs, options) {
       L.TileLayer.WMS.prototype.initialize.call(
         this,
-        "http://maps.southwark.gov.uk/connect/controller/tiling/gettile",
+        "https://corsproxy.bitsushi.com/maps.southwark.gov.uk/connect/controller/tiling/gettile",
         {
           crs: L.SouthwarkTiles.CRS,
           maxZoom: 12,
