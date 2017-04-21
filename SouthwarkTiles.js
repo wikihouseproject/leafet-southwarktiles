@@ -19,14 +19,13 @@
   }
 })(this, function(L) {
   L.SouthwarkTiles = L.SouthwarkTiles || {};
-  L.SouthwarkTiles.VERSION = "0.0.7";
+  L.SouthwarkTiles.VERSION = "0.0.8";
 
   var bounds = {
     top: 219960,
     right: 572960,
     bottom: 138040,
-    left: 491040,
-    center: [51.458189528222356, -0.08094055858692445]
+    left: 491040
   };
 
   L.SouthwarkTiles.CRS = L.extend(
@@ -58,18 +57,12 @@
           crs: L.SouthwarkTiles.CRS,
           maxZoom: 12,
           opacity: 0.8,
-          tileSize: 256
+          tileSize: 256,
 
-          // bounds: L.latLngBounds(
-          //   L.latLng(51.433551, -0.215879),
-          //   L.latLng(51.5799353,-0.0433017)
-          // )
-
-          // tileSize: 271,
-          // bounds: L.latLngBounds(
-          //   L.latLng(51.38885, -0.64932),
-          //   L.latLng(52.06954, 0.48703)
-          // )
+          bounds: L.latLngBounds(
+            L.latLng(51.24123, -0.48975),
+            L.latLng(51.69631, 0.2477)
+          )
         },
         options
       );
@@ -95,8 +88,7 @@
         top: 219960,
         right: 572960,
         bottom: 138040,
-        left: 491040,
-        center: [51.458189528222356, -0.08094055858692445]
+        left: 491040
       };
 
       var resolutionMpp = this.options.crs.options.resolutions[tilePoint.z],
