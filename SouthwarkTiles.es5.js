@@ -37,7 +37,7 @@ function _interopRequireDefault(obj) {
   }
 })(undefined, function(L) {
   L.SouthwarkTiles = L.SouthwarkTiles || {};
-  L.SouthwarkTiles.VERSION = "0.0.9";
+  L.SouthwarkTiles.VERSION = "0.0.11";
 
   var bounds = {
     top: 219960,
@@ -124,12 +124,12 @@ function _interopRequireDefault(obj) {
       this.wmsParams.col = tilePoint.x + 1; // - (3 << level) + 1;
       this.wmsParams.row = tilePoint.y + 1; // + (3 << (level - 1)) + 1;
 
-      console.log(
-        this.options.tileSize,
-        tileSizeMetres,
-        tilePoint,
-        L.Util.getParamString(this.wmsParams)
-      );
+      // console.log(
+      //   this.options.tileSize,
+      //   tileSizeMetres,
+      //   tilePoint,
+      //   L.Util.getParamString(this.wmsParams)
+      // );
 
       // console.info({x: tilePoint.x, y: tilePoint.y, lev: level, row: this.wmsParams.row, col: this.wmsParams.col})
       return this._url + L.Util.getParamString(this.wmsParams);
